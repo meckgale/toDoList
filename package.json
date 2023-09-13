@@ -1,7 +1,7 @@
 {
-  "name": "todolist",
+  "name": "toDoList",
   "version": "1.0.0",
-  "description": "Creating a todo applciation bu using HTML, CCS and javaScript",
+  "description": "Creating a todo application bu using HTML, CCS and javaScript",
   "main": "index.js",
   "scripts": {
     "start": "webpack serve --open",
