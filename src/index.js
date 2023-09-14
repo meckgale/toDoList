@@ -1,8 +1,10 @@
 import './styles/reset.css'
 import './styles/main.css'
-import Task from "./toDoList"
-import UI from "./UI"
+import { initDOM } from './DOM'
+import { initTodoApp } from "./toDoList"
+import { initUI } from "./UI"
 
-let firstTask = new Task('start project', 'now', 'important')
-document.addEventListener('DOMContentLoaded', UI.createButtons)
-console.log(firstTask)
+initDOM()
+initTodoApp()
+initUI()
+

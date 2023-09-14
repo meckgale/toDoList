@@ -1,17 +1,45 @@
-import Task from "./toDoList";
+import { tasks, deleteTask, updateTaskStatus } from "./toDoList"
+import { format, parseISO } from "date-fns"
 
-export default class UI {
+export function initUI() {
+  // Initialize the UI, render tasks, and add event listeners
+  renderTasks()
+  
+  const taskList = document.getElementById('taskList')
 
-    static createTask(name, dueDate, priority) {
+  // Event delegation: Add a single click event listener to the task list
+  taskList.addEventListener('click', handleTaskClick)
+}
 
+export function renderTasks() {
+  const taskList = document.getElementById('taskList')
+  taskList.innerHTML = '' // Clear the existing task list
 
-    }
+  for (const task of tasks) {
+      const listItem = document.createElement('li')
+      listItem.dataset.id = task.id // Set a custom data attribute for the task ID
+      const formattedDueDate = task.dueDate ? format(new Date(parseISO(task.dueDate)), "EEEE do MMMM yyyy") : format(new Date(), "EEEE do MMMM yyyy")
+      listItem.innerHTML = `
+          <input type="checkbox" id="taskCheckbox-${task.id}" name="taskCheckbox" ${task.completed ? 'checked' : ''}>
+          <span>${task.title} (Due: ${formattedDueDate})</span>
+          <button id="deleteTaskBtn-${task.id}" name="deleteTaskBtn">Delete</button>
+          `
 
-    static createButtons() {
-      const taskList = document.createElement('div')
-      taskList.classList.add('.task-list')
-      const taskBtn = document.createElement('button')
-      const content = document.querySelector('#content')
-      content.appendChild(taskBtn)
-    }
+      taskList.appendChild(listItem)
+  }
+}
+
+function handleTaskClick(event) {
+  const target = event.target
+
+  if (target.tagName === 'INPUT' && target.type === 'checkbox') {
+      // Checkbox was clicked, handle task completion
+      const taskId = parseInt(target.parentElement.dataset.id)
+      const completed = target.checked
+      updateTaskStatus(taskId, completed)
+  } else if (target.tagName === 'BUTTON') {
+      // Delete button was clicked, handle task deletion
+      const taskId = parseInt(target.parentElement.dataset.id)
+      deleteTask(taskId)
+  }
 }
