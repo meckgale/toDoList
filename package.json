@@ -4,8 +4,8 @@
   "description": "Creating a todo application bu using HTML, CCS and javaScript",
   "main": "index.js",
   "scripts": {
-    "start": "webpack serve --open",
-    "build": "webpack"
+    "build": "webpack",
+    "dev": "webpack serve"
   },
   "repository": {
     "type": "git",
@@ -25,6 +25,7 @@
     "style-loader": "^3.3.3",
     "webpack": "^5.88.2",
     "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1",
     "xml-loader": "^1.2.1"
   },
   "dependencies": {

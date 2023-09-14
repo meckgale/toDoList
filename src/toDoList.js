@@ -1,4 +1,5 @@
 import { renderTasks } from "./UI";
+import { isValid, parseISO, parse } from 'date-fns';
 
 let taskIdCounter = 1;
 
@@ -41,7 +42,6 @@ function handleAddTask() {
     const dueDateInput = prompt('Enter the due date (YYYY/MM/DD):');
     const dueDate = dueDateInput ? dueDateInput : null;
 
-
     const newTask = new Task(title, dueDate);
     tasks.push(newTask);
     saveTasksToStorage();
@@ -67,6 +67,6 @@ export function updateTaskStatus(taskId, completed) {
     }
 }
 
-function saveTasksToStorage() {
+export function saveTasksToStorage() {
     localStorage.setItem('tasks', JSON.stringify(tasks));
 }

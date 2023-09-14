@@ -1,5 +1,5 @@
 import { tasks, deleteTask, updateTaskStatus } from "./toDoList"
-import { format, parseISO } from "date-fns"
+import { format, toDate, parseISO } from "date-fns"
 
 export function initUI() {
   // Initialize the UI, render tasks, and add event listeners
@@ -18,7 +18,7 @@ export function renderTasks() {
   for (const task of tasks) {
       const listItem = document.createElement('li')
       listItem.dataset.id = task.id // Set a custom data attribute for the task ID
-      const formattedDueDate = task.dueDate ? format(new Date(parseISO(task.dueDate)), "EEEE do MMMM yyyy") : format(new Date(), "EEEE do MMMM yyyy")
+      const formattedDueDate = task.dueDate ? format(new Date(parseISO(task.dueDate)), "eee do MMM yy") : 'not specified';
       listItem.innerHTML = `
           <input type="checkbox" id="taskCheckbox-${task.id}" name="taskCheckbox" ${task.completed ? 'checked' : ''}>
           <span>${task.title} (Due: ${formattedDueDate})</span>
