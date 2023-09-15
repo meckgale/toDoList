@@ -27,6 +27,10 @@ export function initTodoApp() {
     const addTaskBtn = document.getElementById('addTaskBtn');
     addTaskBtn.addEventListener('click', handleAddTask);
 
+    //Delete tasks storage
+    const deleteStorageButton = document.getElementById('deleteStorage')
+    deleteStorageButton.addEventListener('click', deleteTaskStorage)
+
     // Render initial tasks
     renderTasks();
 }
@@ -68,5 +72,10 @@ export function updateTaskStatus(taskId, completed) {
 }
 
 export function saveTasksToStorage() {
-    localStorage.setItem('tasks', JSON.stringify(tasks));
+    localStorage.setItem('tasks', [JSON.stringify(tasks)]);
 }
+
+export function deleteTaskStorage() {
+    localStorage.clear()
+}
+
