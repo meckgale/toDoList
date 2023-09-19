@@ -30,6 +30,7 @@
   },
   "dependencies": {
     "date-fns": "^2.30.0",
+    "flatpickr": "^4.6.13",
     "lodash": "^4.17.21"
   }
 }

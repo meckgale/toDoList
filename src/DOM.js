@@ -1,3 +1,6 @@
+import { format } from "date-fns"
+import { formatDate } from "./currentDate"
+
 export function initDOM() {
     // Create a container div for the to-do app
 const todoAppContainer = document.createElement('div')
@@ -8,10 +11,31 @@ const heading = document.createElement('h1')
 heading.textContent = 'To-Do App'
 
 // Create an input field for adding tasks
-const taskInput = document.createElement('input')
-taskInput.id = 'taskInput' 
-taskInput.type = 'text'
-taskInput.placeholder = 'Add a new task...'
+const taskTitle = document.createElement('input')
+taskTitle.id = 'taskTitle' 
+taskTitle.type = 'text'
+taskTitle.placeholder = 'Title'
+
+// Create an decription field for tasks details
+const taskDescription = document.createElement('input')
+taskDescription.id = 'taskDescription'
+taskDescription.type = 'text'
+taskDescription.placeholder = 'Description'
+
+// Create an dueDate for tasks deadline
+const taskDueDate = document.createElement('input')
+taskDueDate.id = 'taskDueDate'
+taskDueDate.type = 'date'
+taskDueDate.value = formatDate()
+
+//Create priority for tasks importance
+const taskPriority = document.createElement('input')
+taskPriority.id = 'taskPriority'
+taskPriority.type = 'select'
+taskPriority.size = '3'
+taskPriority.value = 'low'
+taskPriority.value = 'modorate'
+taskPriority.value = 'high'
 
 // Create a button to add tasks
 const addTaskBtn = document.createElement('button')
@@ -23,13 +47,16 @@ const deleteStorageBtn = document.createElement('button')
 deleteStorageBtn.id = 'deleteStorage'
 deleteStorageBtn.textContent = 'Clear Tasks'
 
-// Create an empty ul element to hold the task list
-const taskList = document.createElement('ul')
+// Create an empty div element to hold the task list
+const taskList = document.createElement('div')
 taskList.id ='taskList'
 
 // Append the heading, input field, button, and task list to the container
 todoAppContainer.appendChild(heading)
-todoAppContainer.appendChild(taskInput)
+todoAppContainer.appendChild(taskTitle)
+todoAppContainer.appendChild(taskDescription)
+todoAppContainer.appendChild(taskDueDate)
+todoAppContainer.appendChild(taskPriority)
 todoAppContainer.appendChild(addTaskBtn)
 todoAppContainer.appendChild(taskList)
 todoAppContainer.appendChild(deleteStorageBtn)

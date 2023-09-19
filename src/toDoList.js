@@ -1,5 +1,6 @@
 import { renderTasks } from "./UI";
-import { isValid, parseISO, parse } from 'date-fns';
+import { isValid, parseISO, parse, format } from 'date-fns';
+import { formatDate } from "./currentDate";
 
 let taskIdCounter = 1;
 
@@ -8,10 +9,12 @@ function generateTaskId() {
     return taskIdCounter++;
 }
 
-export function Task(title, dueDate = null, completed = false) {
+export function Task(title, description, dueDate = null, priority, completed = false) {
     this.id = generateTaskId();
     this.title = title;
+    this.description = description;
     this.dueDate = dueDate;
+    this.priority = priority;
     this.completed = completed;
 }
 
@@ -36,22 +39,36 @@ export function initTodoApp() {
 }
 
 function handleAddTask() {
-    const taskInput = document.getElementById('taskInput');
-    const title = taskInput.value.trim();
+    const taskTitle = document.getElementById('taskTitle');
+    const title = taskTitle.value.trim();
 
     if (title === '') {
+        alert('Add title for task!');
         return; // Don't add empty tasks
     }
 
-    const dueDateInput = prompt('Enter the due date (YYYY/MM/DD):');
-    const dueDate = dueDateInput ? dueDateInput : null;
+    const taskDescription = document.getElementById('taskDescription')
+    const description = taskDescription.value
 
-    const newTask = new Task(title, dueDate);
+    if (description === '') {
+        alert('Add description for task!');
+        return; // Don't add empty tasks
+    }
+
+    const dueDateInput = document.getElementById('taskDueDate')
+    const dueDate = dueDateInput.value
+
+    const taskPriority = document.getElementById('taskPriority')
+    const priority = taskPriority.value
+
+    const newTask = new Task(title, description, dueDate, priority);
     tasks.push(newTask);
     saveTasksToStorage();
     
     // Clear input and provide feedback
-    taskInput.value = '';
+    taskTitle.value = '';
+    taskDescription.value = '';
+    dueDateInput.value = formatDate();
     alert('Task added successfully!');
 
     renderTasks();
