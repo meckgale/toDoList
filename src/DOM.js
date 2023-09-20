@@ -2,13 +2,25 @@ import { format } from "date-fns"
 import { formatDate } from "./currentDate"
 
 export function initDOM() {
-    // Create a container div for the to-do app
+// Create a container div for the to-do app
 const todoAppContainer = document.createElement('div')
 todoAppContainer.id = 'todoAppContainer'
 
+//Create a list container
+const listContainer = document.createElement('div')
+listContainer.id = 'listContainer'
+
 // Create a heading for the app
 const heading = document.createElement('h1')
-heading.textContent = 'To-Do App'
+heading.textContent = 'To-Do List'
+
+//Create header container for inputs(title, duedate, priortiy and submit button)
+const inputHeader = document.createElement('div')
+inputHeader.id = 'inputHeader'
+
+//Create section for description
+const descriptionSection = document.createElement('div')
+descriptionSection.id = 'descriptionSection'
 
 // Create an input field for adding tasks
 const taskTitle = document.createElement('input')
@@ -16,11 +28,22 @@ taskTitle.id = 'taskTitle'
 taskTitle.type = 'text'
 taskTitle.placeholder = 'Title'
 
+//Label element for title input
+const titleLabel = document.createElement('label')
+titleLabel.textContent = 'Task Title'
+titleLabel.setAttribute('for', 'taskTitle')
+inputHeader.appendChild(titleLabel)
+
 // Create an decription field for tasks details
 const taskDescription = document.createElement('input')
 taskDescription.id = 'taskDescription'
 taskDescription.type = 'text'
-taskDescription.placeholder = 'Description'
+
+//Label element for title description
+const descriptionLabel = document.createElement('label')
+descriptionLabel.textContent = 'Task Description'
+descriptionLabel.setAttribute('for', 'taskDescription')
+descriptionSection.appendChild(descriptionLabel)
 
 // Create an dueDate for tasks deadline
 const taskDueDate = document.createElement('input')
@@ -57,16 +80,19 @@ const taskList = document.createElement('div')
 taskList.id ='taskList'
 
 // Append the heading, input field, button, and task list to the container
-todoAppContainer.appendChild(heading)
-todoAppContainer.appendChild(taskTitle)
-todoAppContainer.appendChild(taskDescription)
-todoAppContainer.appendChild(taskDueDate)
-todoAppContainer.appendChild(taskPriority)
-todoAppContainer.appendChild(addTaskBtn)
-todoAppContainer.appendChild(taskList)
-todoAppContainer.appendChild(deleteStorageBtn)
+inputHeader.appendChild(taskTitle)
+inputHeader.appendChild(taskDueDate)
+inputHeader.appendChild(taskPriority)
+inputHeader.appendChild(addTaskBtn)
+todoAppContainer.appendChild(inputHeader)
+descriptionSection.appendChild(taskDescription)
+todoAppContainer.appendChild(descriptionSection)
+listContainer.appendChild(taskList)
+listContainer.appendChild(deleteStorageBtn)
 
 // Append the container to the document body
+document.body.appendChild(heading)
 document.body.appendChild(todoAppContainer)
+document.body.appendChild(listContainer)
 }
 

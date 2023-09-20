@@ -1,0 +1,34 @@
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Roboto:wght@300&display=swap');
+
+
+body {
+    align-items: center;
+    font-size: 16px;
+    font-family: 'Roboto', sans-serif;
+    background-color: lightgray;
+    width: 100%;
+    gap: 2rem;
+    padding: 1rem;
+}
+
+#todoAppContainer{
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    width: 40rem;
+    gap: 1rem;
+}
+
+#inputHeader{
+    display: flex;
+    justify-content: space-between;
+}
+
+#descriptionSection {
+    display: flex;
+    flex-direction: column;
+}
+
+#taskDescription {
+    height: 8rem;
+}
