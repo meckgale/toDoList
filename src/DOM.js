@@ -29,13 +29,18 @@ taskDueDate.type = 'date'
 taskDueDate.value = formatDate()
 
 //Create priority for tasks importance
-const taskPriority = document.createElement('input')
-taskPriority.id = 'taskPriority'
-taskPriority.type = 'select'
-taskPriority.size = '3'
-taskPriority.value = 'low'
-taskPriority.value = 'modorate'
-taskPriority.value = 'high'
+const taskPriority = document.createElement('select')
+const priorities = ["High", "Medium", "Low"];
+// Loop through the priorities and create an option element for each
+priorities.forEach((priority) => {
+    const option = document.createElement("option");
+    option.value = priority; // Set the value attribute to the priority value
+    option.textContent = priority; // Set the text content of the option
+    if (priority === "Medium") {
+        option.selected = true; // Set 'Medium' as the default selected option
+    }
+    taskPriority.appendChild(option); // Append the option to the select element
+  });
 
 // Create a button to add tasks
 const addTaskBtn = document.createElement('button')

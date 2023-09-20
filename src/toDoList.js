@@ -58,8 +58,8 @@ function handleAddTask() {
     const dueDateInput = document.getElementById('taskDueDate')
     const dueDate = dueDateInput.value
 
-    const taskPriority = document.getElementById('taskPriority')
-    const priority = taskPriority.value
+    const priorityOption = document.querySelector('select')
+    const priority = priorityOption.value
 
     const newTask = new Task(title, description, dueDate, priority);
     tasks.push(newTask);
@@ -69,6 +69,7 @@ function handleAddTask() {
     taskTitle.value = '';
     taskDescription.value = '';
     dueDateInput.value = formatDate();
+    priorityOption.value = "Medium";
     alert('Task added successfully!');
 
     renderTasks();
