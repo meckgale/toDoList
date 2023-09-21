@@ -94,6 +94,8 @@ export function saveTasksToStorage() {
 }
 
 export function deleteTaskStorage() {
-    localStorage.clear()
+    tasks = [];
+    localStorage.setItem('tasks', [JSON.stringify(tasks)]);
+    renderTasks();
 }
 

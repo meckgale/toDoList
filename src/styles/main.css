@@ -2,13 +2,15 @@
 
 
 body {
+    display: flex;
+    flex-direction: column;
     align-items: center;
     font-size: 16px;
     font-family: 'Roboto', sans-serif;
     background-color: lightgray;
     width: 100%;
+    margin: 1rem;
     gap: 2rem;
-    padding: 1rem;
 }
 
 #todoAppContainer{
@@ -22,6 +24,11 @@ body {
 #inputHeader{
     display: flex;
     justify-content: space-between;
+}
+
+#titleContainer, #dueDateContainer, #priorityContainer{
+    display: flex;
+    flex-direction: column;
 }
 
 #descriptionSection {

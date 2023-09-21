@@ -18,26 +18,38 @@ heading.textContent = 'To-Do List'
 const inputHeader = document.createElement('div')
 inputHeader.id = 'inputHeader'
 
+//Create title container for label and input elements
+const titleContainer = document.createElement('div')
+titleContainer.id = 'titleContainer' 
+
+//Create due date container for label and input elements
+const dueDateContainer = document.createElement('div')
+dueDateContainer.id = 'dueDateContainer' 
+
+//Create priority container for label and input elements
+const priorityContainer = document.createElement('div')
+priorityContainer.id = 'priorityContainer'
+
 //Create section for description
 const descriptionSection = document.createElement('div')
 descriptionSection.id = 'descriptionSection'
+
+//Label element for title input
+const titleLabel = document.createElement('label')
+titleLabel.textContent = 'Task Title'
+titleLabel.setAttribute('for', 'taskTitle')
+titleContainer.appendChild(titleLabel)
 
 // Create an input field for adding tasks
 const taskTitle = document.createElement('input')
 taskTitle.id = 'taskTitle' 
 taskTitle.type = 'text'
 taskTitle.placeholder = 'Title'
-
-//Label element for title input
-const titleLabel = document.createElement('label')
-titleLabel.textContent = 'Task Title'
-titleLabel.setAttribute('for', 'taskTitle')
-inputHeader.appendChild(titleLabel)
+titleContainer.appendChild(taskTitle)
 
 // Create an decription field for tasks details
-const taskDescription = document.createElement('input')
+const taskDescription = document.createElement('textarea')
 taskDescription.id = 'taskDescription'
-taskDescription.type = 'text'
 
 //Label element for title description
 const descriptionLabel = document.createElement('label')
@@ -45,11 +57,24 @@ descriptionLabel.textContent = 'Task Description'
 descriptionLabel.setAttribute('for', 'taskDescription')
 descriptionSection.appendChild(descriptionLabel)
 
+//Label element for due date input
+const dueDateLabel = document.createElement('label')
+dueDateLabel.textContent = 'Due Date'
+dueDateLabel.setAttribute('for', 'dueDateLabel')
+dueDateContainer.appendChild(dueDateLabel)
+
 // Create an dueDate for tasks deadline
 const taskDueDate = document.createElement('input')
 taskDueDate.id = 'taskDueDate'
 taskDueDate.type = 'date'
 taskDueDate.value = formatDate()
+dueDateContainer.appendChild(taskDueDate)
+
+//Label element for priority input
+const priorityLabel = document.createElement('label')
+priorityLabel.textContent = 'Task Priority'
+priorityLabel.setAttribute('for', 'priorityLabel')
+priorityContainer.appendChild(priorityLabel)
 
 //Create priority for tasks importance
 const taskPriority = document.createElement('select')
@@ -64,6 +89,7 @@ priorities.forEach((priority) => {
     }
     taskPriority.appendChild(option); // Append the option to the select element
   });
+priorityContainer.appendChild(taskPriority)
 
 // Create a button to add tasks
 const addTaskBtn = document.createElement('button')
@@ -80,9 +106,9 @@ const taskList = document.createElement('div')
 taskList.id ='taskList'
 
 // Append the heading, input field, button, and task list to the container
-inputHeader.appendChild(taskTitle)
-inputHeader.appendChild(taskDueDate)
-inputHeader.appendChild(taskPriority)
+inputHeader.appendChild(titleContainer)
+inputHeader.appendChild(dueDateContainer)
+inputHeader.appendChild(priorityContainer)
 inputHeader.appendChild(addTaskBtn)
 todoAppContainer.appendChild(inputHeader)
 descriptionSection.appendChild(taskDescription)
