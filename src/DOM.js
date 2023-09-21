@@ -14,7 +14,7 @@ listContainer.id = 'listContainer'
 const heading = document.createElement('h1')
 heading.textContent = 'To-Do List'
 
-//Create header container for inputs(title, duedate, priortiy and submit button)
+//Create header container for inputs(title, due date, priority and submit button)
 const inputHeader = document.createElement('div')
 inputHeader.id = 'inputHeader'
 
@@ -47,7 +47,7 @@ taskTitle.type = 'text'
 taskTitle.placeholder = 'Title'
 titleContainer.appendChild(taskTitle)
 
-// Create an decription field for tasks details
+// Create an description field for tasks details
 const taskDescription = document.createElement('textarea')
 taskDescription.id = 'taskDescription'
 

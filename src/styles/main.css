@@ -39,3 +39,43 @@ body {
 #taskDescription {
     height: 8rem;
 }
+
+.listItem{
+    display: flex;
+    justify-content: center;
+}
+
+.taskContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    border: solid;
+    margin: 1rem;
+    padding: 1rem;
+    width: 60%;
+}
+
+.topContainer{
+    display: flex;
+    justify-content: space-between;
+}
+
+.bottomContainer{
+    display: flex;
+    gap: 1rem;
+}
+
+.topRight{
+    display: flex;
+    gap: 1rem;
+}
+
+.topLeft{
+    display: flex;
+    gap: 1rem;
+}
+
+.taskTitle{
+    text-transform: uppercase;
+    min-width: 40%;
+}

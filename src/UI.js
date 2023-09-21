@@ -17,14 +17,26 @@ export function renderTasks() {
 
   for (const task of tasks) {
       const listItem = document.createElement('div')
+      listItem.classList.add('listItem')
       listItem.dataset.id = task.id // Set a custom data attribute for the task ID
       // const formattedDueDate = task.dueDate ? format(new Date(parseISO(task.dueDate)), "eee do MMM yy") : format(new Date(), "eee do MMM yy");
       listItem.innerHTML = `
-          <input type="checkbox" id="taskCheckbox-${task.id}" name="taskCheckbox" ${task.completed ? 'checked' : ''}>
-          <span>${task.title} (Due: ${task.dueDate})</span>
-          <span>${task.description} (Priority: ${task.priority})</span>
-          <button id="deleteTaskBtn-${task.id}" name="deleteTaskBtn">Delete</button>
-          `
+      <div class="taskContainer">
+        <div class="topContainer">
+          <div class="topLeft">
+            <input type="checkbox" id="taskCheckbox-${task.id}" name="taskCheckbox" ${task.completed ? 'checked' : ''}>
+            <div class="taskTitle">${task.title}</div>
+          </div>
+          <div class="topRight">
+            <div>Due: ${task.dueDate}</div>
+            <div>Priority: ${task.priority}</div>
+            <button id="deleteTaskBtn-${task.id}" name="deleteTaskBtn">Delete</button>
+          </div>
+        </div>
+        <div class="bottomContainer">
+          <div>${task.description}</div>
+        </div>
+      </div>`
 
       taskList.appendChild(listItem)
   }
