@@ -30,6 +30,20 @@ export function initTodoApp() {
     const addTaskBtn = document.getElementById('addTaskBtn');
     addTaskBtn.addEventListener('click', handleAddTask);
 
+    //Add event listener for sorting task list
+    const selectElement = document.getElementById("sort");
+    selectElement.addEventListener("change", () => {
+        const selectedCriteria = selectElement.value;
+        sortTasks(selectedCriteria);
+    });
+
+    //Add event listener for filtering tastk status
+    // const filterSelect = document.getElementById("filterSelect");
+    // filterSelect.addEventListener("change", () => {
+    //     const selectedFilter = filterSelect.value;
+    //     filterTasks(selectedFilter);
+    // });
+
     //Delete tasks storage
     const deleteStorageButton = document.getElementById('deleteStorage')
     deleteStorageButton.addEventListener('click', deleteTaskStorage)
@@ -74,6 +88,37 @@ function handleAddTask() {
 
     renderTasks();
 }
+
+function sortTasks(selectedCriteria) {
+    tasks.sort((taskA, taskB) => {
+        if (selectedCriteria === "Due Date") {
+            // Sort by due date
+            return new Date(taskA.dueDate) - new Date(taskB.dueDate);
+        } else if (selectedCriteria === "Priority") {
+            // Sort by priority (assuming priority is a string like "High", "Medium", "Low")
+            const priorities = ["High", "Medium", "Low"];
+            return priorities.indexOf(taskA.priority) - priorities.indexOf(taskB.priority);
+        }
+    });
+
+    renderTasks();
+}
+
+// function filterTasks(status) {
+//     let filteredTasks;
+
+//     if(status === 'Completed Tasks') {
+//         filteredTasks = tasks.filter(task => task.completed);
+//     }
+//     else if(status === 'Not Completed Tasks') {
+//         filteredTasks = tasks.filter(task => !task.completed);
+//     }
+//     else {
+//         filteredTasks = tasks;
+//     }
+
+//     renderTasks(filteredTasks);
+// }
 
 export function deleteTask(taskId) {
     tasks = tasks.filter(task => task.id !== taskId);

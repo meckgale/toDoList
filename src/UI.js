@@ -9,6 +9,9 @@ export function initUI() {
 
   // Event delegation: Add a single click event listener to the task list
   taskList.addEventListener('click', handleTaskClick)
+
+  //Event delegetion for checkboxes
+  // taskList.addEventListener('click', toggleTaskCompletion)
 }
 
 export function renderTasks() {
@@ -56,3 +59,11 @@ function handleTaskClick(event) {
       deleteTask(taskId)
   }
 }
+
+// function toggleTaskCompletion(taskId) {
+//   const task = tasks.find(task => task.id === taskId);
+//   if (task) {
+//       task.completed = !task.completed;
+//       renderTasks(); // Update the task list after toggling completion status
+//   }
+// }

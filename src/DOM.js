@@ -96,6 +96,40 @@ const addTaskBtn = document.createElement('button')
 addTaskBtn.id = 'addTaskBtn'
 addTaskBtn.textContent = 'Add Task'
 
+//Create a select element to filter task status
+// const filteredTasks = document.createElement('select')
+// filteredTasks.id = 'filterSelect'
+// const filterTypes = ["Completed Tasks", "Not Completed Tasks", "All Tasks"]
+// filterTypes.forEach((filterItem, index) => {
+//   const type = document.createElement("option");
+//   const typeId = `filterType_${index}`
+//   type.value = filterItem
+//   type.textContent = filterItem
+//   type.id = typeId
+//   if (filterItem === "All Tasks") {
+//     type.selected = true
+//   }
+//   filteredTasks.appendChild(type)
+// })
+// listContainer.appendChild(filteredTasks)
+
+//Create a select element to sort task list
+const sort = document.createElement('select')
+sort.id = 'sort'
+const sortOptions = ["Due Date", "Priority"]
+sortOptions.forEach((sortItem, index) => {
+  const option = document.createElement("option");
+  const optionId = `sortOption_${index}`
+  option.value = sortItem
+  option.textContent = sortItem
+  option.id = optionId
+  if (sortItem === "Due Date") {
+    option.selected = true
+  }
+  sort.appendChild(option)
+})
+listContainer.appendChild(sort)
+
 //Create a button to delete task storage
 const deleteStorageBtn = document.createElement('button')
 deleteStorageBtn.id = 'deleteStorage'
