@@ -1,5 +1,4 @@
 import { renderTasks } from "./UI";
-import { isValid, parseISO, parse, format } from 'date-fns';
 import { formatDate } from "./currentDate";
 
 let taskIdCounter = 1;
@@ -37,19 +36,16 @@ export function initTodoApp() {
         sortTasks(selectedCriteria);
     });
 
-    //Add event listener for filtering tastk status
-    // const filterSelect = document.getElementById("filterSelect");
-    // filterSelect.addEventListener("change", () => {
-    //     const selectedFilter = filterSelect.value;
-    //     filterTasks(selectedFilter);
-    // });
+    //Add event listener for filter task list
+    const filteredTasks = document.getElementById('taskFilter')
+    filteredTasks.addEventListener('change', handleFilterChange)
 
     //Delete tasks storage
     const deleteStorageButton = document.getElementById('deleteStorage')
     deleteStorageButton.addEventListener('click', deleteTaskStorage)
 
     // Render initial tasks
-    renderTasks();
+    renderTasks(tasks);
 }
 
 function handleAddTask() {
@@ -86,7 +82,7 @@ function handleAddTask() {
     priorityOption.value = "Medium";
     alert('Task added successfully!');
 
-    renderTasks();
+    renderTasks(tasks);
 }
 
 function sortTasks(selectedCriteria) {
@@ -101,29 +97,33 @@ function sortTasks(selectedCriteria) {
         }
     });
 
-    renderTasks();
+    renderTasks(tasks);
 }
 
-// function filterTasks(status) {
-//     let filteredTasks;
-
-//     if(status === 'Completed Tasks') {
-//         filteredTasks = tasks.filter(task => task.completed);
-//     }
-//     else if(status === 'Not Completed Tasks') {
-//         filteredTasks = tasks.filter(task => !task.completed);
-//     }
-//     else {
-//         filteredTasks = tasks;
-//     }
-
-//     renderTasks(filteredTasks);
-// }
+function handleFilterChange(event) {
+    const selectedFilter = event.target.value; // Get the selected filter value
+  
+    // Filter the tasks based on the selected option
+    let filteredTasks = [];
+  
+    if (selectedFilter === 'completed') {
+      filteredTasks = tasks.filter(task => task.completed);
+    } else if (selectedFilter === 'active') {
+      filteredTasks = tasks.filter(task => !task.completed);
+    } else {
+      // If "All Tasks" is selected or no filter is selected, show all tasks
+      filteredTasks = tasks;
+    }
+  
+    // Render the filtered tasks
+    renderTasks(filteredTasks);
+  }
+  
 
 export function deleteTask(taskId) {
     tasks = tasks.filter(task => task.id !== taskId);
     saveTasksToStorage();
-    renderTasks();
+    renderTasks(tasks);
 }
 
 export function updateTaskStatus(taskId, completed) {
@@ -141,6 +141,6 @@ export function saveTasksToStorage() {
 export function deleteTaskStorage() {
     tasks = [];
     localStorage.setItem('tasks', [JSON.stringify(tasks)]);
-    renderTasks();
+    renderTasks(tasks);
 }
 

@@ -1,20 +1,17 @@
-import { tasks, deleteTask, updateTaskStatus, deleteTaskStorage } from "./toDoList"
-import { format, toDate, parseISO } from "date-fns"
+import { tasks, deleteTask, updateTaskStatus } from "./toDoList"
 
 export function initUI() {
   // Initialize the UI, render tasks, and add event listeners
-  renderTasks()
+  renderTasks(tasks)
   
   const taskList = document.getElementById('taskList')
 
   // Event delegation: Add a single click event listener to the task list
   taskList.addEventListener('click', handleTaskClick)
 
-  //Event delegetion for checkboxes
-  // taskList.addEventListener('click', toggleTaskCompletion)
 }
 
-export function renderTasks() {
+export function renderTasks(tasks) {
   const taskList = document.getElementById('taskList')
   taskList.innerHTML = '' // Clear the existing task list
 
@@ -22,7 +19,6 @@ export function renderTasks() {
       const listItem = document.createElement('div')
       listItem.classList.add('listItem')
       listItem.dataset.id = task.id // Set a custom data attribute for the task ID
-      // const formattedDueDate = task.dueDate ? format(new Date(parseISO(task.dueDate)), "eee do MMM yy") : format(new Date(), "eee do MMM yy");
       listItem.innerHTML = `
       <div class="taskContainer">
         <div class="topContainer">
@@ -47,23 +43,18 @@ export function renderTasks() {
 
 function handleTaskClick(event) {
   const target = event.target
+  console.log(target)
 
   if (target.tagName === 'INPUT' && target.type === 'checkbox') {
       // Checkbox was clicked, handle task completion
-      const taskId = parseInt(target.parentElement.dataset.id)
+      const taskId = parseInt(target.closest('div[data-id]').dataset.id)
       const completed = target.checked
       updateTaskStatus(taskId, completed)
+      console.log(tasks)
   } else if (target.tagName === 'BUTTON') {
       // Delete button was clicked, handle task deletion
-      const taskId = parseInt(target.parentElement.dataset.id)
+      const taskId = parseInt(target.closest('div[data-id]').dataset.id)
       deleteTask(taskId)
   }
 }
 
-// function toggleTaskCompletion(taskId) {
-//   const task = tasks.find(task => task.id === taskId);
-//   if (task) {
-//       task.completed = !task.completed;
-//       renderTasks(); // Update the task list after toggling completion status
-//   }
-// }

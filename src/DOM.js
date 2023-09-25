@@ -1,4 +1,3 @@
-import { format } from "date-fns"
 import { formatDate } from "./currentDate"
 
 export function initDOM() {
@@ -99,10 +98,11 @@ addTaskBtn.textContent = 'Add Task'
 //Create a select element to filter task status
 // const filteredTasks = document.createElement('select')
 // filteredTasks.id = 'filterSelect'
-// const filterTypes = ["Completed Tasks", "Not Completed Tasks", "All Tasks"]
+// const filterTypes = ["All Tasks", "Completed Tasks", "Active Tasks"]
 // filterTypes.forEach((filterItem, index) => {
 //   const type = document.createElement("option");
 //   const typeId = `filterType_${index}`
+//   console.log(`filterType_${index}`)
 //   type.value = filterItem
 //   type.textContent = filterItem
 //   type.id = typeId
@@ -112,6 +112,32 @@ addTaskBtn.textContent = 'Add Task'
 //   filteredTasks.appendChild(type)
 // })
 // listContainer.appendChild(filteredTasks)
+
+// Create the select element
+const select = document.createElement('select');
+select.setAttribute('id', 'taskFilter'); // Set an ID for the select element
+
+// Create the options and add them to the select element
+const option1 = document.createElement('option');
+option1.value = 'completed';
+option1.textContent = 'Completed Tasks';
+
+const option2 = document.createElement('option');
+option2.value = 'active';
+option2.textContent = 'Active Tasks';
+
+const option3 = document.createElement('option');
+option3.value = 'all';
+option3.textContent = 'All Tasks';
+
+// Append the options to the select element
+select.appendChild(option1);
+select.appendChild(option2);
+select.appendChild(option3);
+
+// Append the select element to an existing element in the DOM
+listContainer.appendChild(select);
+
 
 //Create a select element to sort task list
 const sort = document.createElement('select')
