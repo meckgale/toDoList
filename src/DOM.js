@@ -122,9 +122,10 @@ option3.value = 'all';
 option3.textContent = 'All';
 
 // Append the options to the select element
-select.appendChild(option1);
-select.appendChild(option2);
+
 select.appendChild(option3);
+select.appendChild(option2);
+select.appendChild(option1);
 
 // Append the select element to an existing element in the DOM
 const selectContainer = document.createElement('div')
