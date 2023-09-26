@@ -37,8 +37,8 @@ export function initTodoApp() {
     });
 
     //Add event listener for filter task list
-    const filteredTasks = document.getElementById('taskFilter')
-    filteredTasks.addEventListener('change', handleFilterChange)
+    const filterSelect = document.getElementById('taskFilter')
+    filterSelect.addEventListener('change', handleFilterChange)
 
     //Delete tasks storage
     const deleteStorageButton = document.getElementById('deleteStorage')

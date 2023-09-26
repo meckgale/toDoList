@@ -9,6 +9,10 @@ todoAppContainer.id = 'todoAppContainer'
 const listContainer = document.createElement('div')
 listContainer.id = 'listContainer'
 
+//Create a filter container
+const filterContainer = document.createElement('div')
+filterContainer.id = 'filterContainer'
+
 // Create a heading for the app
 const heading = document.createElement('h1')
 heading.textContent = 'To-Do List'
@@ -95,23 +99,10 @@ const addTaskBtn = document.createElement('button')
 addTaskBtn.id = 'addTaskBtn'
 addTaskBtn.textContent = 'Add Task'
 
-//Create a select element to filter task status
-// const filteredTasks = document.createElement('select')
-// filteredTasks.id = 'filterSelect'
-// const filterTypes = ["All Tasks", "Completed Tasks", "Active Tasks"]
-// filterTypes.forEach((filterItem, index) => {
-//   const type = document.createElement("option");
-//   const typeId = `filterType_${index}`
-//   console.log(`filterType_${index}`)
-//   type.value = filterItem
-//   type.textContent = filterItem
-//   type.id = typeId
-//   if (filterItem === "All Tasks") {
-//     type.selected = true
-//   }
-//   filteredTasks.appendChild(type)
-// })
-// listContainer.appendChild(filteredTasks)
+//Create label for select element
+const selectLabel = document.createElement('label')
+selectLabel.textContent = 'Filter Tasks'
+selectLabel.setAttribute('for', 'selectLabel')
 
 // Create the select element
 const select = document.createElement('select');
@@ -120,15 +111,15 @@ select.setAttribute('id', 'taskFilter'); // Set an ID for the select element
 // Create the options and add them to the select element
 const option1 = document.createElement('option');
 option1.value = 'completed';
-option1.textContent = 'Completed Tasks';
+option1.textContent = 'Completed';
 
 const option2 = document.createElement('option');
 option2.value = 'active';
-option2.textContent = 'Active Tasks';
+option2.textContent = 'Active';
 
 const option3 = document.createElement('option');
 option3.value = 'all';
-option3.textContent = 'All Tasks';
+option3.textContent = 'All';
 
 // Append the options to the select element
 select.appendChild(option1);
@@ -136,12 +127,21 @@ select.appendChild(option2);
 select.appendChild(option3);
 
 // Append the select element to an existing element in the DOM
-listContainer.appendChild(select);
+const selectContainer = document.createElement('div')
+selectContainer.id = 'selectContainer'
+selectContainer.appendChild(selectLabel)
+selectContainer.appendChild(select)
+filterContainer.appendChild(selectContainer)
 
+//Label for select sort element
+const sortLabel = document.createElement('label')
+sortLabel.textContent = 'Sort By'
+sortLabel.setAttribute('for', 'sortLabel')
 
 //Create a select element to sort task list
 const sort = document.createElement('select')
 sort.id = 'sort'
+sort.textContent = 'Sort By'
 const sortOptions = ["Due Date", "Priority"]
 sortOptions.forEach((sortItem, index) => {
   const option = document.createElement("option");
@@ -154,7 +154,11 @@ sortOptions.forEach((sortItem, index) => {
   }
   sort.appendChild(option)
 })
-listContainer.appendChild(sort)
+const sortContainer = document.createElement('div')
+sortContainer.id = 'sortContainer'
+sortContainer.appendChild(sortLabel)
+sortContainer.appendChild(sort)
+filterContainer.appendChild(sortContainer)
 
 //Create a button to delete task storage
 const deleteStorageBtn = document.createElement('button')
@@ -173,6 +177,7 @@ inputHeader.appendChild(addTaskBtn)
 todoAppContainer.appendChild(inputHeader)
 descriptionSection.appendChild(taskDescription)
 todoAppContainer.appendChild(descriptionSection)
+listContainer.appendChild(filterContainer)
 listContainer.appendChild(taskList)
 listContainer.appendChild(deleteStorageBtn)
 
