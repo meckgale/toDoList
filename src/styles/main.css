@@ -18,14 +18,18 @@ body {
     width: 100%;
     margin: 1rem;
     gap: 2rem;
+    min-width: min-content;
 }
 
 #todoAppContainer{
-    display: flex;
+    display: none;
     flex-direction: column;
-    box-sizing: border-box;
     width: 65%;
     gap: 1rem;
+}
+
+#todoAppContainer.active {
+    display: flex;
 }
 
 input, textarea, select {
@@ -56,6 +60,7 @@ input, textarea, select {
 #listContainer{
     display: flex;
     flex-direction: column;
+    width: 65%;
     gap: 2rem;
 }
 
@@ -97,8 +102,13 @@ input, textarea, select {
 }
 
 .bottomContainer{
-    display: flex;
+    display: none;
     gap: 1rem;
+    justify-content: space-between;
+}
+
+.bottomContainer.active {
+    display: flex;
 }
 
 .topRight{

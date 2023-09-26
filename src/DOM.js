@@ -1,9 +1,16 @@
 import { formatDate } from "./currentDate"
 
 export function initDOM() {
+//Create a button for open-close app container
+const appContainerBtn = document.createElement('button')
+appContainerBtn.id = 'appContainerButton'
+appContainerBtn.classList.add = 'appContainerButton'
+appContainerBtn.textContent = 'New Task'
+
 // Create a container div for the to-do app
 const todoAppContainer = document.createElement('div')
 todoAppContainer.id = 'todoAppContainer'
+todoAppContainer.classList.add = 'todoAppContainer'
 
 //Create a list container
 const listContainer = document.createElement('div')
@@ -184,6 +191,7 @@ listContainer.appendChild(deleteStorageBtn)
 
 // Append the container to the document body
 document.body.appendChild(heading)
+document.body.appendChild(appContainerBtn)
 document.body.appendChild(todoAppContainer)
 document.body.appendChild(listContainer)
 }

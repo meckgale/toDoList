@@ -1,17 +1,24 @@
-import { uiTasks, deleteTask, updateTaskStatus, addTask, sortTasks, filterTasks } from "./toDoList"
+import { uiTasks, deleteTask, updateTaskStatus, addTask, sortTasks, filterTasks, deleteTaskStorage, initTodoApp } from "./toDoList"
 import { formatDate } from "./currentDate";
 
 export function initUI() {
   // Initialize the UI, render tasks, and add event listeners
-  
   const taskList = document.getElementById('taskList')
 
   // Event delegation: Add a single click event listener to the task list
   taskList.addEventListener('click', handleTaskClick)
 
+  //New task button
+  const newTaskBtn = document.getElementById('appContainerButton')
+  initAppContainer(newTaskBtn, 'toggle')
+
   // Add event listener for adding tasks
   const addTaskBtn = document.getElementById('addTaskBtn');
-  addTaskBtn.addEventListener('click', handleAddTask);
+  addTaskBtn.addEventListener('click', () => {
+    handleAddTask()
+    initAppContainer(addTaskBtn, 'remove')
+    renderTasks();
+  });
 
   //Add event listener for sorting task list
   const selectElement = document.getElementById("sort");
@@ -52,6 +59,7 @@ export function renderTasks() {
       <div class="taskContainer">
         <div class="topContainer">
           <div class="topLeft">
+            <button class="detailTaskBtn" id="detailTaskBtn-${task.id}" name="detailTaskBtn">V</button>
             <input type="checkbox" id="taskCheckbox-${task.id}" name="taskCheckbox" ${task.completed ? 'checked' : ''}>
             <div class="taskTitle">${task.title}</div>
           </div>
@@ -63,6 +71,7 @@ export function renderTasks() {
         </div>
         <div class="bottomContainer">
           <div>${task.description}</div>
+          <button id="editTaskBtn-${task.id}" name="editTaskBtn">Edit</button>
         </div>
       </div>`
 
@@ -101,8 +110,6 @@ function handleAddTask() {
   dueDateInput.value = formatDate();
   priorityOption.value = "Medium";
   alert('Task added successfully!');
-
-  renderTasks();
 }
 
 function handleTaskClick(event) {
@@ -116,10 +123,44 @@ function handleTaskClick(event) {
       updateTaskStatus(taskId, completed)
       renderTasks()
   } else if (target.tagName === 'BUTTON') {
-      // Delete button was clicked, handle task deletion
-      const taskId = parseInt(target.closest('div[data-id]').dataset.id)
-      deleteTask(taskId)
-      renderTasks()
+    if(target.name === 'deleteTaskBtn') {
+        // Delete button was clicked, handle task deletion
+        const taskId = parseInt(target.closest('div[data-id]').dataset.id)
+        deleteTask(taskId)
+        renderTasks()
+    }
+    else if(target.name === 'detailTaskBtn') {
+        //Add event listener for detail task button
+        const targetedTask = target.closest('div[data-id]')
+        console.log(targetedTask);
+        const bottomContainer = targetedTask.querySelector('.bottomContainer')
+        bottomContainer.classList.toggle('active');
+        console.log(bottomContainer.value)
+    }
+    else if(target.name === 'editTaskBtn') {
+      //Add event listener to edit task
+      const targetedTask = target.closest('div[data-id]')
+      console.log(targetedTask);
+      const targetBtn = document.getElementById(`${target.id}`)
+      console.log(targetBtn)
+      console.log(target.id)
+      initAppContainer(targetBtn, 'toggle')
+    }
   }
+}
+
+function initAppContainer(element, action) {
+  element.addEventListener('click', () => {
+    const inputAppContainer = document.getElementById('todoAppContainer')
+    if(action === 'add') {
+      inputAppContainer.classList.add('active')
+    }
+    else if(action === 'remove') {
+      inputAppContainer.classList.remove('active')
+    }
+    else if(action === 'toggle') {
+      inputAppContainer.classList.toggle('active')
+    }
+  })
 }
 
