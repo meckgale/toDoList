@@ -1,11 +1,12 @@
 {
-  "name": "toDoList",
+  "name": "todolist",
   "version": "1.0.0",
   "description": "Creating a todo application bu using HTML, CCS and javaScript",
   "main": "index.js",
   "scripts": {
     "build": "webpack",
-    "dev": "webpack serve"
+    "dev": "webpack serve",
+    "bundle": "git subtree push --prefix dist origin gh-pages" 
   },
   "repository": {
     "type": "git",
