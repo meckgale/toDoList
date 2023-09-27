@@ -1,7 +1,9 @@
+import { capitalize } from "lodash";
+
 let taskIdCounter = 1;
 
 // ID generator function
-function generateTaskId() {
+export function generateTaskId() {
     return taskIdCounter++;
 }
 
@@ -55,6 +57,36 @@ function generateUITasks() {
         }
     });
 }
+
+export function generateEditIDs(element) {
+    // Get all child elements of the provided element
+    const children = element.querySelectorAll('*');
+  
+    // Iterate through each child element
+    children.forEach(child => {
+      // Check if the child has an ID attribute
+      if (child.id) {
+        //Capitilize first letter of given ID
+        const capValueID = `${child.id}`.charAt(0).toUpperCase() + `${child.id}`.slice(1)
+        // Generate a new ID by adding "edit" to the beginning
+        const newID = 'edit' + capValueID;
+        
+        // Set the new ID for the child element
+        child.id = newID;
+      }
+      // Check if the child is a <label> element
+      else if (child.tagName.toLowerCase() === 'label') {
+        // Update the 'for' attribute of the label to match the new ID
+        const htmlFor = child.getAttribute('for');
+        if (htmlFor) {
+          //Capitilize first letter of given ID
+          const capValueFor = `${htmlFor}`.charAt(0).toUpperCase() + `${htmlFor}`.slice(1)
+          const newHtmlFor = 'edit' + capValueFor;
+          child.setAttribute('for', newHtmlFor);
+        }
+      }
+    });
+  }
 
 export function sortTasks(selectedCriteria) {
     appliedSort = selectedCriteria;

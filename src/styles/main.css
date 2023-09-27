@@ -21,8 +21,15 @@ body {
     min-width: min-content;
 }
 
-#todoAppContainer{
+#todoAppContainer {
     display: none;
+    flex-direction: column;
+    width: 65%;
+    gap: 1rem;
+}
+
+#editContainer{
+    display: flex;
     flex-direction: column;
     width: 65%;
     gap: 1rem;
@@ -38,22 +45,22 @@ input, textarea, select {
     height: 1.5rem;
 }
 
-#inputHeader{
+#inputHeader, #editInputHeader{
     display: flex;
     justify-content: space-between;
 }
 
-#titleContainer, #dueDateContainer, #priorityContainer{
+#titleContainer, #dueDateContainer, #priorityContainer, #editTitleContainer, #editDueDateContainer, #editPriorityContainer{
     display: flex;
     flex-direction: column;
 }
 
-#descriptionSection {
+#descriptionSection, #editDescriptionSection {
     display: flex;
     flex-direction: column;
 }
 
-#taskDescription {
+#taskDescription, #editTaskDescription {
     height: 8rem;
 }
 
@@ -105,6 +112,7 @@ input, textarea, select {
     display: none;
     gap: 1rem;
     justify-content: space-between;
+    align-items: center;
 }
 
 .bottomContainer.active {
@@ -114,16 +122,13 @@ input, textarea, select {
 .topRight{
     display: flex;
     gap: 1rem;
+    align-items: center;
 }
 
 .topLeft{
     display: flex;
     gap: 1rem;
-}
-
-.taskTitle{
-    text-transform: uppercase;
-    font-weight: bolder;
+    align-items: center;
 }
 
 button {

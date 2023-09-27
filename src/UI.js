@@ -1,4 +1,4 @@
-import { uiTasks, deleteTask, updateTaskStatus, addTask, sortTasks, filterTasks, deleteTaskStorage, initTodoApp } from "./toDoList"
+import { uiTasks, deleteTask, updateTaskStatus, addTask, sortTasks, filterTasks, deleteTaskStorage, generateEditIDs } from "./toDoList"
 import { formatDate } from "./currentDate";
 
 export function initUI() {
@@ -73,9 +73,24 @@ export function renderTasks() {
           <div>${task.description}</div>
           <button id="editTaskBtn-${task.id}" name="editTaskBtn">Edit</button>
         </div>
+        <div class="editContainer" id="editContainer-${task.id}"></div>
       </div>`
 
+      //Create edit container
+      const todoAppContainer = document.querySelector('#todoAppContainer')
+      const editContainer = todoAppContainer.cloneNode(true)
+      generateEditIDs(editContainer)
+      editContainer.id = 'editContainer'
+      editContainer.dataset.id = task.id
+      console.log(editContainer)
+
+      //Assign values to each input fields
+      const editTaskTitle = document.querySelector('#editTitleContainer')
+
+
+      //Append elements
       taskList.appendChild(listItem)
+      taskList.appendChild(editContainer)
   }
 }
 
@@ -137,15 +152,15 @@ function handleTaskClick(event) {
         bottomContainer.classList.toggle('active');
         console.log(bottomContainer.value)
     }
-    else if(target.name === 'editTaskBtn') {
-      //Add event listener to edit task
-      const targetedTask = target.closest('div[data-id]')
-      console.log(targetedTask);
-      const targetBtn = document.getElementById(`${target.id}`)
-      console.log(targetBtn)
-      console.log(target.id)
-      initAppContainer(targetBtn, 'toggle')
-    }
+    // else if(target.name === 'editTaskBtn') {
+    //   //Add event listener to edit task
+    //   const targetedTask = target.closest('div[data-id]')
+    //   console.log(targetedTask);
+    //   const targetBtn = document.getElementById(`${target.id}`)
+    //   console.log(targetBtn)
+    //   console.log(target.id)
+    //   initAppContainer(targetBtn, 'toggle')
+    // }
   }
 }
 
@@ -164,3 +179,11 @@ function initAppContainer(element, action) {
   })
 }
 
+// function editTask() {
+//   const todoAppContainer = document.querySelector('#todoAppContainer')
+//   const editContainer = todoAppContainer.cloneNode(true)
+//   generateEditIDs(editContainer)
+//   editContainer.id = generateTaskId();
+//   console.log(editContainer)
+//   return editContainer
+// }

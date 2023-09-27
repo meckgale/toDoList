@@ -11,6 +11,7 @@ appContainerBtn.textContent = 'New Task'
 const todoAppContainer = document.createElement('div')
 todoAppContainer.id = 'todoAppContainer'
 todoAppContainer.classList.add = 'todoAppContainer'
+console.log(todoAppContainer)
 
 //Create a list container
 const listContainer = document.createElement('div')
@@ -116,23 +117,23 @@ const select = document.createElement('select');
 select.setAttribute('id', 'taskFilter'); // Set an ID for the select element
 
 // Create the options and add them to the select element
-const option1 = document.createElement('option');
-option1.value = 'completed';
-option1.textContent = 'Completed';
+const optionCompleted = document.createElement('option');
+optionCompleted.value = 'completed';
+optionCompleted.textContent = 'Completed';
 
-const option2 = document.createElement('option');
-option2.value = 'active';
-option2.textContent = 'Active';
+const optionActive = document.createElement('option');
+optionActive.value = 'active';
+optionActive.textContent = 'Active';
 
-const option3 = document.createElement('option');
-option3.value = 'all';
-option3.textContent = 'All';
+const optionAll = document.createElement('option');
+optionAll.value = 'all';
+optionAll.textContent = 'All';
 
 // Append the options to the select element
 
-select.appendChild(option3);
-select.appendChild(option2);
-select.appendChild(option1);
+select.appendChild(optionAll);
+select.appendChild(optionActive);
+select.appendChild(optionCompleted);
 
 // Append the select element to an existing element in the DOM
 const selectContainer = document.createElement('div')

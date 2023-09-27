@@ -6,7 +6,7 @@
   "scripts": {
     "build": "webpack",
     "dev": "webpack serve",
-    "bundle": "git subtree push --prefix dist origin gh-pages" 
+    "bundle": "git subtree push --prefix dist origin gh-pages"
   },
   "repository": {
     "type": "git",
