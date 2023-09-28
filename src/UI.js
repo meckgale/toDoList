@@ -61,36 +61,42 @@ export function renderTasks() {
           <div class="topLeft">
             <button class="detailTaskBtn" id="detailTaskBtn-${task.id}" name="detailTaskBtn">V</button>
             <input type="checkbox" id="taskCheckbox-${task.id}" name="taskCheckbox" ${task.completed ? 'checked' : ''}>
-            <div class="taskTitle">${task.title}</div>
+            <div class="taskTitle" id="taskTitle-${task.id}">${task.title}</div>
           </div>
           <div class="topRight">
-            <div>Due: ${task.dueDate}</div>
-            <div>Priority: ${task.priority}</div>
+            <div class="taskDue" id="taskDue-${task.id}">Due: ${task.dueDate}</div>
+            <div class="taskPriority" id="taskPriority-${task.id}">Priority: ${task.priority}</div>
             <button id="deleteTaskBtn-${task.id}" name="deleteTaskBtn">Delete</button>
           </div>
         </div>
         <div class="bottomContainer">
-          <div>${task.description}</div>
+          <div class="taskDescription" id="taskDescription-${task.id}">${task.description}</div>
           <button id="editTaskBtn-${task.id}" name="editTaskBtn">Edit</button>
         </div>
         <div class="editContainer" id="editContainer-${task.id}"></div>
       </div>`
+      //!!!Move it inside a function rather than generate it for each task 
+      //Select list item
 
       //Create edit container
-      const todoAppContainer = document.querySelector('#todoAppContainer')
-      const editContainer = todoAppContainer.cloneNode(true)
-      generateEditIDs(editContainer)
-      editContainer.id = 'editContainer'
-      editContainer.dataset.id = task.id
-      console.log(editContainer)
+      // const todoAppContainer = document.querySelector('#todoAppContainer')
+      // const editContainer = todoAppContainer.cloneNode(true)
+      // generateEditIDs(editContainer)
+      // editContainer.id = 'editContainer'
+      // editContainer.dataset.id = task.id
+      // console.log(editContainer)
 
-      //Assign values to each input fields
-      const editTaskTitle = document.querySelector('#editTitleContainer')
+      // //Assign values to input fields
+      // const editTaskTitle = document.querySelector('#editTitleContainer')
+      // // editTaskTitle.dataset.id = tas
+      // const editTaskDueDate = document.querySelector('#editTaskDueDate')
+      // const editTaskDescription = document.querySelector('#editTaskDescription')
+
 
 
       //Append elements
       taskList.appendChild(listItem)
-      taskList.appendChild(editContainer)
+      // taskList.appendChild(editContainer)
   }
 }
 
@@ -152,15 +158,22 @@ function handleTaskClick(event) {
         bottomContainer.classList.toggle('active');
         console.log(bottomContainer.value)
     }
-    // else if(target.name === 'editTaskBtn') {
-    //   //Add event listener to edit task
-    //   const targetedTask = target.closest('div[data-id]')
-    //   console.log(targetedTask);
-    //   const targetBtn = document.getElementById(`${target.id}`)
-    //   console.log(targetBtn)
-    //   console.log(target.id)
-    //   initAppContainer(targetBtn, 'toggle')
-    // }
+    else if(target.name === 'editTaskBtn') {
+
+        //Add event listener for edit task button
+        const selectedListItem = target.closest('div[data-id]')
+        console.log(selectedListItem)
+
+        const taskList = document.getElementById('taskList')
+        editTaskGenerator(taskList, selectedListItem)
+        const selectedEditContainer = document.querySelector(`[id="editContainer"][data-id="${selectedListItem.dataset.id}"]`)
+        console.log(selectedEditContainer)
+        assignValues(selectedListItem, selectedEditContainer)
+        console.log(selectedListItem.querySelector('.taskTitle').innerHTML)
+        console.log(selectedListItem.querySelector('.taskPriority').innerHTML) 
+        console.log(selectedListItem.querySelector('.taskDue').innerHTML)
+        console.log(selectedListItem.querySelector('.taskDescription').innerHTML)
+    }
   }
 }
 
@@ -179,11 +192,23 @@ function initAppContainer(element, action) {
   })
 }
 
-// function editTask() {
-//   const todoAppContainer = document.querySelector('#todoAppContainer')
-//   const editContainer = todoAppContainer.cloneNode(true)
-//   generateEditIDs(editContainer)
-//   editContainer.id = generateTaskId();
-//   console.log(editContainer)
-//   return editContainer
-// }
+function editTaskGenerator(parentElement, listElement) {
+  const todoAppContainer = document.querySelector('#todoAppContainer')
+  const editContainer = todoAppContainer.cloneNode(true)
+  generateEditIDs(editContainer)
+  editContainer.id = 'editContainer'
+  editContainer.dataset.id = listElement.dataset.id
+  editContainer.querySelector('#editAddTaskBtn').textContent = 'Update Task'
+  console.log(editContainer)
+  parentElement.appendChild(editContainer)
+}
+
+function assignValues(originalElement, assignedElement) {
+  
+  // //Assign values to input fields
+  assignedElement.querySelector('#editTaskTitle').value = originalElement.querySelector('.taskTitle').textContent
+  assignedElement.querySelector('#editTaskDescription').value = originalElement.querySelector('.taskDescription').textContent
+  // assignedElement.querySelector('#editTaskDueDate').innerHTML = originalElement.querySelector('.taskDue').innerHTML
+  assignedElement.querySelector('.taskOption').selected = originalElement.querySelector('.taskPriority').textContent 
+
+}

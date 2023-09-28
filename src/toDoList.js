@@ -1,5 +1,3 @@
-import { capitalize } from "lodash";
-
 let taskIdCounter = 1;
 
 // ID generator function

@@ -89,16 +89,18 @@ priorityContainer.appendChild(priorityLabel)
 
 //Create priority for tasks importance
 const taskPriority = document.createElement('select')
+taskPriority.id = "taskPriority"
 const priorities = ["High", "Medium", "Low"];
 // Loop through the priorities and create an option element for each
 priorities.forEach((priority) => {
-    const option = document.createElement("option");
-    option.value = priority; // Set the value attribute to the priority value
-    option.textContent = priority; // Set the text content of the option
+    const taskOption = document.createElement("option");
+    taskOption.classList.add('taskOption')
+    taskOption.value = priority; // Set the value attribute to the priority value
+    taskOption.textContent = priority; // Set the text content of the option
     if (priority === "Medium") {
-        option.selected = true; // Set 'Medium' as the default selected option
+        taskOption.selected = true; // Set 'Medium' as the default selected option
     }
-    taskPriority.appendChild(option); // Append the option to the select element
+    taskPriority.appendChild(taskOption); // Append the option to the select element
   });
 priorityContainer.appendChild(taskPriority)
 
