@@ -71,7 +71,7 @@ export function renderTasks() {
         </div>
         <div class="bottomContainer">
           <div class="taskDescription" id="taskDescription-${task.id}">${task.description}</div>
-          <button id="editTaskBtn-${task.id}" name="editTaskBtn">Edit</button>
+          <button id="editTaskBtn-${task.id}" name="editTaskBtn" data-initialized="false">Edit</button>
         </div>
         <div class="editContainer" id="editContainer-${task.id}"></div>
       </div>`
@@ -151,7 +151,7 @@ function handleTaskClick(event) {
         renderTasks()
     }
     else if(target.name === 'detailTaskBtn') {
-        //Add event listener for detail task button
+        // Detail button was clicked, handle detail preview
         const targetedTask = target.closest('div[data-id]')
         console.log(targetedTask);
         const bottomContainer = targetedTask.querySelector('.bottomContainer')
@@ -159,20 +159,27 @@ function handleTaskClick(event) {
         console.log(bottomContainer.value)
     }
     else if(target.name === 'editTaskBtn') {
+        // Edit button was clicked, handle task edit
 
-        //Add event listener for edit task button
+        //!!!NOT WORKING AS EXPECTED
+        //Limit button run time
+        const buttonID = target.id
+        console.log('Button clicked:', buttonID);
+        limitInitButton(buttonID)
+
+        //Select clicked task item
         const selectedListItem = target.closest('div[data-id]')
         console.log(selectedListItem)
-
+        //Select task list
         const taskList = document.getElementById('taskList')
+
+        //Generate input field for editing
         editTaskGenerator(taskList, selectedListItem)
         const selectedEditContainer = document.querySelector(`[id="editContainer"][data-id="${selectedListItem.dataset.id}"]`)
         console.log(selectedEditContainer)
+
+        //Assign values of selected task to input field
         assignValues(selectedListItem, selectedEditContainer)
-        console.log(selectedListItem.querySelector('.taskTitle').innerHTML)
-        console.log(selectedListItem.querySelector('.taskPriority').innerHTML) 
-        console.log(selectedListItem.querySelector('.taskDue').innerHTML)
-        console.log(selectedListItem.querySelector('.taskDescription').innerHTML)
     }
   }
 }
@@ -192,6 +199,7 @@ function initAppContainer(element, action) {
   })
 }
 
+//Create an input fileds from todoAppContainer to edit selected task
 function editTaskGenerator(parentElement, listElement) {
   const todoAppContainer = document.querySelector('#todoAppContainer')
   const editContainer = todoAppContainer.cloneNode(true)
@@ -203,12 +211,26 @@ function editTaskGenerator(parentElement, listElement) {
   parentElement.appendChild(editContainer)
 }
 
+//Create a function to assign values of an elemnt to other
 function assignValues(originalElement, assignedElement) {
   
   // //Assign values to input fields
   assignedElement.querySelector('#editTaskTitle').value = originalElement.querySelector('.taskTitle').textContent
   assignedElement.querySelector('#editTaskDescription').value = originalElement.querySelector('.taskDescription').textContent
-  // assignedElement.querySelector('#editTaskDueDate').innerHTML = originalElement.querySelector('.taskDue').innerHTML
-  assignedElement.querySelector('.taskOption').selected = originalElement.querySelector('.taskPriority').textContent 
-
+  assignedElement.querySelector('#editTaskDueDate').value = originalElement.querySelector('.taskDue').innerHTML.slice(5)
+  assignedElement.querySelector('.taskOption').innerHTML = originalElement.querySelector('.taskPriority').innerHTML.slice(10)
 }
+
+//!!!NOT WORKING AS EXPECTED
+//Limit edit buttons initialization with one time only
+function limitInitButton(targetID) {
+  const selectedButton = document.querySelector(`#${targetID}`)
+  if (selectedButton.getAttribute('data-initialized') === 'true') {
+    console.log('Button is already initialized.');
+    return
+  }
+  selectedButton.setAttribute('data-initialized', 'true');
+  console.log('Button is already initialized.');
+}
+
+
