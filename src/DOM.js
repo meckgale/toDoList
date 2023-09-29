@@ -11,7 +11,6 @@ appContainerBtn.textContent = 'New Task'
 const todoAppContainer = document.createElement('div')
 todoAppContainer.id = 'todoAppContainer'
 todoAppContainer.classList.add = 'todoAppContainer'
-console.log(todoAppContainer)
 
 //Create a list container
 const listContainer = document.createElement('div')

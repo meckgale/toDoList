@@ -71,32 +71,15 @@ export function renderTasks() {
         </div>
         <div class="bottomContainer">
           <div class="taskDescription" id="taskDescription-${task.id}">${task.description}</div>
-          <button id="editTaskBtn-${task.id}" name="editTaskBtn" data-initialized="false">Edit</button>
+          <button id="editTaskBtn-${task.id}" name="editTaskBtn">Edit</button>
         </div>
-        <div class="editContainer" id="editContainer-${task.id}"></div>
       </div>`
-      //!!!Move it inside a function rather than generate it for each task 
-      //Select list item
-
-      //Create edit container
-      // const todoAppContainer = document.querySelector('#todoAppContainer')
-      // const editContainer = todoAppContainer.cloneNode(true)
-      // generateEditIDs(editContainer)
-      // editContainer.id = 'editContainer'
-      // editContainer.dataset.id = task.id
-      // console.log(editContainer)
-
-      // //Assign values to input fields
-      // const editTaskTitle = document.querySelector('#editTitleContainer')
-      // // editTaskTitle.dataset.id = tas
-      // const editTaskDueDate = document.querySelector('#editTaskDueDate')
-      // const editTaskDescription = document.querySelector('#editTaskDescription')
-
-
-
+      
       //Append elements
       taskList.appendChild(listItem)
-      // taskList.appendChild(editContainer)
+      
+      //Generate task editor
+      editTaskGenerator(taskList, listItem)
   }
 }
 
@@ -135,7 +118,6 @@ function handleAddTask() {
 
 function handleTaskClick(event) {
   const target = event.target
-  console.log(target)
 
   if (target.tagName === 'INPUT' && target.type === 'checkbox') {
       // Checkbox was clicked, handle task completion
@@ -153,33 +135,68 @@ function handleTaskClick(event) {
     else if(target.name === 'detailTaskBtn') {
         // Detail button was clicked, handle detail preview
         const targetedTask = target.closest('div[data-id]')
-        console.log(targetedTask);
         const bottomContainer = targetedTask.querySelector('.bottomContainer')
         bottomContainer.classList.toggle('active');
-        console.log(bottomContainer.value)
     }
     else if(target.name === 'editTaskBtn') {
         // Edit button was clicked, handle task edit
 
-        //!!!NOT WORKING AS EXPECTED
-        //Limit button run time
-        const buttonID = target.id
-        console.log('Button clicked:', buttonID);
-        limitInitButton(buttonID)
-
         //Select clicked task item
         const selectedListItem = target.closest('div[data-id]')
-        console.log(selectedListItem)
-        //Select task list
-        const taskList = document.getElementById('taskList')
 
         //Generate input field for editing
-        editTaskGenerator(taskList, selectedListItem)
+        // editTaskGenerator(taskList, selectedListItem)
         const selectedEditContainer = document.querySelector(`[id="editContainer"][data-id="${selectedListItem.dataset.id}"]`)
-        console.log(selectedEditContainer)
 
         //Assign values of selected task to input field
         assignValues(selectedListItem, selectedEditContainer)
+        selectedEditContainer.classList.toggle('working')
+
+        const taskId = parseInt(target.closest('div[data-id]').dataset.id)
+
+        const updateTaskBtn = document.querySelector(`[id="editAddTaskBtn"][data-id="${selectedListItem.dataset.id}"]`)
+
+    }
+    else if(target.name === 'editAddTaskBtn') {
+      //Select edit list item
+      const selectedListItem = target.closest('div[data-id]')
+
+      //Select edit container
+      const selectedEditContainer = document.querySelector(`[id="editContainer"][data-id="${selectedListItem.dataset.id}"]`)
+
+      //Assign values on the container to updated list
+      function handleUpdateTask() {
+        const taskTitle = selectedEditContainer.querySelector('#editTaskTitle');
+        const title = taskTitle.value.trim();
+      
+        if (title === '') {
+            alert('Add title for task!');
+            return; // Don't add empty tasks
+        }
+      
+        const taskDescription = selectedEditContainer.querySelector('#editTaskDescription')
+        const description = taskDescription.value
+      
+        if (description === '') {
+            alert('Add description for task!');
+            return; // Don't add empty tasks
+        }
+      
+        const dueDateInput = selectedEditContainer.querySelector('#editTaskDueDate')
+        const dueDate = dueDateInput.value
+      
+        const priorityOption = selectedEditContainer.querySelector('#editTaskPriority')
+        const priority = priorityOption.value
+        
+        addTask(title, description, dueDate, priority);
+      }
+
+      //Select task id to be edited and delete it after updated task created
+      const taskId = parseInt(target.closest('div[data-id]').dataset.id)
+  
+      handleUpdateTask()
+      deleteTask(taskId)
+      renderTasks()
     }
   }
 }
@@ -207,7 +224,8 @@ function editTaskGenerator(parentElement, listElement) {
   editContainer.id = 'editContainer'
   editContainer.dataset.id = listElement.dataset.id
   editContainer.querySelector('#editAddTaskBtn').textContent = 'Update Task'
-  console.log(editContainer)
+  editContainer.querySelector('#editAddTaskBtn').name = 'editAddTaskBtn'
+  editContainer.querySelector('#editAddTaskBtn').dataset.id = listElement.dataset.id
   parentElement.appendChild(editContainer)
 }
 
@@ -218,19 +236,7 @@ function assignValues(originalElement, assignedElement) {
   assignedElement.querySelector('#editTaskTitle').value = originalElement.querySelector('.taskTitle').textContent
   assignedElement.querySelector('#editTaskDescription').value = originalElement.querySelector('.taskDescription').textContent
   assignedElement.querySelector('#editTaskDueDate').value = originalElement.querySelector('.taskDue').innerHTML.slice(5)
-  assignedElement.querySelector('.taskOption').innerHTML = originalElement.querySelector('.taskPriority').innerHTML.slice(10)
+  assignedElement.querySelector('#editTaskPriority').value = originalElement.querySelector('.taskPriority').innerHTML.slice(10)
 }
 
-//!!!NOT WORKING AS EXPECTED
-//Limit edit buttons initialization with one time only
-function limitInitButton(targetID) {
-  const selectedButton = document.querySelector(`#${targetID}`)
-  if (selectedButton.getAttribute('data-initialized') === 'true') {
-    console.log('Button is already initialized.');
-    return
-  }
-  selectedButton.setAttribute('data-initialized', 'true');
-  console.log('Button is already initialized.');
-}
-
-
+  

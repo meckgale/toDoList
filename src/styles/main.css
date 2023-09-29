@@ -21,21 +21,14 @@ body {
     min-width: min-content;
 }
 
-#todoAppContainer {
+#todoAppContainer, #editContainer {
     display: none;
     flex-direction: column;
     width: 65%;
     gap: 1rem;
 }
 
-#editContainer{
-    display: flex;
-    flex-direction: column;
-    width: 65%;
-    gap: 1rem;
-}
-
-#todoAppContainer.active {
+#todoAppContainer.active, #editContainer.working {
     display: flex;
 }
 
@@ -146,3 +139,10 @@ button:hover {
     transition: transform 100ms;
     transform: scale(1.1);
 }
+
+/* .detailTaskBtn {
+    border: none;
+    border-radius: 50%;
+    padding: 0;
+    min-width: 3rem;    
+} */
