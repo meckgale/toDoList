@@ -59,7 +59,7 @@ export function renderTasks() {
       <div class="taskContainer">
         <div class="topContainer">
           <div class="topLeft">
-            <button class="detailTaskBtn" id="detailTaskBtn-${task.id}" name="detailTaskBtn">V</button>
+            <button class="detailTaskBtn" id="detailTaskBtn-${task.id}" name="detailTaskBtn">|></button>
             <input type="checkbox" id="taskCheckbox-${task.id}" name="taskCheckbox" ${task.completed ? 'checked' : ''}>
             <div class="taskTitle" id="taskTitle-${task.id}">${task.title}</div>
           </div>

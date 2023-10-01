@@ -11,6 +11,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     font-size: 16px;
     font-family: 'Roboto', sans-serif;
     background-color: var(--lightgray);
@@ -19,6 +20,10 @@ body {
     margin: 1rem;
     gap: 2rem;
     min-width: min-content;
+}
+
+#appContainerButton{
+    margin-right: 60%;
 }
 
 #todoAppContainer, #editContainer {
@@ -124,6 +129,10 @@ input, textarea, select {
     align-items: center;
 }
 
+.taskTitle{
+    text-transform: capitalize;
+}
+
 button {
     align-self: center; 
     background-color: var(--orange);
@@ -140,9 +149,6 @@ button:hover {
     transform: scale(1.1);
 }
 
-/* .detailTaskBtn {
-    border: none;
-    border-radius: 50%;
-    padding: 0;
-    min-width: 3rem;    
-} */
+.detailTaskBtn{
+   transform: rotate(90deg);
+}
