@@ -1,2 +1,4 @@
 # toDoList
-Creating a todo applciation bu using HTML, CCS and javaScript
+Creating a todo application bu using HTML, CCS and javaScript
+
+[Live Demo](https://meckgale.github.io/toDoList/)
